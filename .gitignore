@@ -1,0 +1,40 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ─── Virtual environments ────────────────────────────────
+venv/
+.venv/
+env/
+
+# ─── IDE / editor ────────────────────────────────────────
+.vscode/
+.idea/
+
+# ─── OS files ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Misc ────────────────────────────────────────────────
+.env
+*.log
+.ipynb_checkpoints/
+.claude
+
+# ─── alpha-beta-CROWN: external tool, installed separately ─
+# The cloned verifier lives outside this repo (WSL: ~/alpha-beta-CROWN).
+alpha-beta-CROWN/
+alpha-beta-crown/
+
+# ─── alpha-beta-CROWN: generated artifacts (not source) ───
+# Compiled VNNLIB cache the verifier writes next to each spec.
+*.vnnlib.compiled
+vnnlib/*.compiled
+# Counterexamples / cached bounds / output dumps.
+*.pkl
+*.pt
+*.npz
+out.txt
+# Binary pickle summary emitted by the run (we keep the readable .txt log instead).
+results/abcrown_out.txt
