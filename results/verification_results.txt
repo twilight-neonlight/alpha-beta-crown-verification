@@ -1,0 +1,2666 @@
+# alpha-beta-CROWN run @ 2026-06-15T15:29:48.086694
+# config: configs/mnist_mlp.yaml
+# command: /root/miniconda3/envs/alpha-beta-crown/bin/python /root/alpha-beta-CROWN/complete_verifier/abcrown.py --config /mnt/c/Users/Taewoo/alpha-beta-crown-verification/configs/mnist_mlp.yaml --root_path /mnt/c/Users/Taewoo/alpha-beta-crown-verification
+
+INFO     15:29:55     [utils.py:161] NumExpr defaulting to 16 threads.
+INFO     15:29:55     [tensor_storage.py:70] Hugepage enabled for branch-and-bound domains.
+Configurations:
+
+general:
+  device: cpu
+  seed: 100
+  conv_mode: patches
+  deterministic: false
+  double_fp: false
+  loss_reduction_func: sum
+  sparse_alpha: true
+  sparse_interm: true
+  save_adv_example: false
+  verify_onnxruntime_output: false
+  eval_adv_example: false
+  onnx_adv_example: false
+  show_adv_example: false
+  precompile_jit: false
+  reset_seed_after_precompile: false
+  prepare_only: false
+  complete_verifier: bab
+  enable_incomplete_verification: true
+  csv_name: instances.csv
+  results_file: results/abcrown_out.txt
+  root_path: /mnt/c/Users/Taewoo/alpha-beta-crown-verification
+  deterministic_opt: false
+  graph_optimizer: 'Customized("custom_graph_optimizer", "default_optimizer")'
+  buffer_has_batchdim: false
+  save_output: false
+  output_file: out.pkl
+  return_optimized_model: false
+  store_all_specs_on_cpu: false
+  adhoc_tuning: null
+model:
+  name: null
+  path: null
+  onnx_path: models/model.onnx
+  onnx_path_prefix: ''
+  cache_onnx_conversion: false
+  debug_onnx: false
+  onnx_quirks: null
+  input_shape: [-1, 784]
+  onnx_loader: default_onnx_and_vnnlib_loader
+  onnx_optimization_flags: []
+  onnx_vnnlib_joint_optimization_flags: none
+  check_optimized: false
+  flatten_final_output: false
+  optimize_graph: null
+  with_jacobian: false
+  bound_opts: null
+data:
+  start: 0
+  end: 10000
+  select_instance: null
+  num_outputs: 10
+  mean: 0.0
+  std: 1.0
+  pkl_path: null
+  dataset: null
+  data_filter_path: null
+  data_idx_file: null
+specification:
+  type: lp
+  robustness_type: verified-acc
+  norm: .inf
+  epsilon: null
+  epsilon_min: 0.0
+  vnnlib_path: null
+  vnnlib_path_prefix: ''
+  shrink_eps: null
+  rhs_offset: null
+solver:
+  batch_size: 2048
+  auto_enlarge_batch_size: true
+  batched_crown_auto_enlarge_max_vram_ratio: 0.9
+  min_batch_size_ratio: 0.1
+  use_float64_in_last_iteration: false
+  early_stop_patience: 10
+  start_save_best: 0.5
+  bound_prop_method: alpha-crown
+  init_bound_prop_method: same
+  prune_after_crown: true
+  optimize_disjuncts_separately: false
+  build_batch_size: 1000000
+  skip_with_refined_bound: true
+  forward_before_compute_bounds: false
+  crown:
+    batch_size: 1000000000
+    max_crown_size: 1000000000
+    activation_bound_option: adaptive
+    compare_crown_with_ibp: false
+  alpha-crown:
+    alpha: true
+    lr_alpha: 0.1
+    iteration: 100
+    share_alphas: false
+    lr_decay: 0.98
+    full_conv_alpha: true
+    max_coeff_mul: .inf
+    matmul_share_alphas: false
+    disable_optimization: []
+    max_time: 1.0
+    alpha_dtype: float16
+    input_split_alpha_iteration: 5
+    input_split_lr_alpha: 0.05
+  invprop:
+    apply_output_constraints_to: []
+    tighten_input_bounds: false
+    best_of_oc_and_no_oc: false
+    directly_optimize: []
+    oc_lr: 0.1
+    share_gammas: false
+  beta-crown:
+    lr_alpha: 0.01
+    lr_beta: 0.05
+    lr_decay: 0.98
+    optimizer: adam
+    iteration: 20
+    beta: true
+    beta_warmup: true
+    enable_opt_interm_bounds: false
+    all_node_split_LP: false
+  forward:
+    refine: false
+    max_dim: 10000
+    reset_threshold: 1.0
+  mip:
+    unstable_neuron_threshold: 0
+    parallel_solvers: null
+    solver_threads: 1
+    refine_neuron_timeout: 15
+    refine_neuron_time_percentage: 0.8
+    early_stop: true
+    adv_warmup: true
+    mip_solver: gurobi
+    skip_unsafe: false
+    topk_filter: 1.0
+    sliding_window: -1
+    extra_constraint: false
+    refine_neuron_timeout_increasement: 0
+    timeout_neuron_percentage: 0.3
+    remaining_timeout_threshold: 1
+    remove_unstable_neurons: false
+    formulation: mip
+    output_cut: false
+bab:
+  max_domains: .inf
+  decision_thresh: 0
+  timeout: 120
+  timeout_scale: 1
+  max_iterations: -1
+  override_timeout: null
+  get_upper_bound: false
+  pruning_in_iteration: true
+  pruning_in_iteration_ratio: 0.2
+  sort_targets: false
+  batched_domain_list: true
+  optimized_interm: ''
+  interm_transfer: true
+  recompute_interm: false
+  sort_domain_interval: -1
+  tree_traversal: depth_first
+  hugetensor_allocator: true
+  cut:
+    enabled: false
+    cuts_path: null
+    bab_cut: false
+    lp_cut: false
+    lr: 0.01
+    lr_decay: 1.0
+    iteration: 100
+    bab_iteration: -1
+    early_stop_patience: -1
+    lr_beta: 0.02
+    number_cuts: 50
+    topk_cuts_in_filter: 1000
+    batch_size_primal: 100
+    max_num: 1000000000
+    patches_cut: false
+    cplex_cuts: false
+    cplex_cuts_wait: 0
+    cplex_cuts_revpickup: true
+    cut_reference_bounds: true
+    fix_intermediate_bounds: false
+    manual_cuts: null
+    record_cplex_cut_to: null
+    read_cplex_cut_from: null
+    biccos:
+      enabled: false
+      auto_param: true
+      constraint_strengthening: true
+      drop_ratio: 0.5
+      max_infer_iter: 20
+      max_domain: 10000.0
+      heuristic: neuron_influence_score
+      save_cuts: false
+      multi_tree_branching:
+        enabled: false
+        restore_best_tree: true
+        keep_n_best_domains: 50
+        target_batch_size: 200
+        iterations: 3
+  clip_n_verify:
+    rearrange_constraints: false
+    alpha_crown: false
+    prune: false
+    final_layer: false
+    clip_input_domain:
+      enabled: false
+      clip_type: relaxed
+      clip_neuron_selection_type: ratio
+      clip_neuron_selection_value: -1.0
+      clip_iterations: 1
+      clip_calculate_volume_metrics: false
+    clip_interm_domain:
+      enabled: false
+      with_input: false
+      clip_in_alpha_crown: false
+      topk_objective: 20
+  branching:
+    method: kfsb
+    candidates: 3
+    reduceop: min
+    enable_intermediate_bound_opt: false
+    branching_input_and_activation: false
+    branching_input_and_activation_order: [input, relu]
+    branching_input_iterations: 30
+    branching_relu_iterations: 50
+    save_visited_domains_to: ''
+    nonlinear_split:
+      method: bbps
+      disable: false
+      branching_point_method: uniform
+      num_branches: 2
+      filter: false
+      filter_beta: false
+      filter_clamp: false
+      filter_batch_size: 10000
+      filter_iterations: 25
+      relu_only: false
+      loose_tanh_threshold: null
+      branching_point:
+        db_path: branching_points.pt
+        num_iterations: 1000
+        batch_size: 1000000
+        range_l: -5.0
+        range_u: 5.0
+        log_interval: 100
+        step_size_1d: 0.01
+        step_size: 0.2
+    input_split:
+      split_hint: null
+      enable: false
+      reorder_bab: false
+      input_dim_threshold: 20
+      adv_check: 0
+      split_partitions: 2
+      sb_margin_weight: 1.0
+      sb_sum: false
+      sb_primary_spec: null
+      bf_backup_thresh: -1
+      bf_rhs_offset: 0
+      bf_iters: 1000000000.0
+      bf_batch_size: 100000
+      bf_zero_crossing_score: false
+      touch_zero_score: 0
+      ibp_enhancement: true
+      compare_with_old_bounds: true
+      update_rhs_with_attack: false
+      sb_coeff_thresh: 0.001
+      sort_index: null
+      sort_descending: true
+      show_progress: false
+      presplit_domains: null
+      skip_getting_worst_domain: false
+  branching_decision_precompute:
+    enable: true
+  attack:
+    enabled: false
+    beam_candidates: 8
+    beam_depth: 7
+    max_dive_fix_ratio: 0.8
+    min_local_free_ratio: 0.2
+    mip_start_iteration: 5
+    mip_timeout: 30.0
+    adv_pool_threshold: null
+    refined_mip_attacker: false
+    refined_batch_size: null
+attack:
+  general_attack: true
+  pgd_order: before
+  pgd_steps: 100
+  pgd_restarts: 30
+  pgd_batch_size: 100000000
+  pgd_early_stop: true
+  pgd_lr_decay: 0.99
+  pgd_alpha: auto
+  pgd_alpha_scale: false
+  pgd_loss_mode: null
+  pgd_restart_when_stuck: false
+  enable_mip_attack: false
+  adv_saver: default_adv_saver
+  adv_verifier: default_adv_verifier
+  early_stop_condition: default_early_stop_condition
+  adv_example_finalizer: default_adv_example_finalizer
+  pgd_loss: default_pgd_loss
+  cex_path: ./test_cex.txt
+  attack_mode: PGD
+  attack_tolerance: 0.0
+  attack_func: attack_with_general_specs
+  gama_lambda: 10.0
+  gama_decay: 0.9
+  input_split:
+    pgd_steps: 100
+    pgd_restarts: 30
+    pgd_alpha: auto
+  input_split_check_adv:
+    enabled: auto
+    pgd_steps: 5
+    pgd_restarts: 5
+    pgd_alpha: auto
+    max_num_domains: 10
+debug:
+  view_model: false
+  lp_test: null
+  rescale_vnnlib_ptb: null
+  test_optimized_bounds: false
+  test_optimized_bounds_after_n_iterations: 0
+  print_verbose_decisions: false
+  biccos_mip_sanity_check: false
+  sanity_check: 0
+  z_split_enabled: false
+  save_minimal_config: null
+  save_minimal_config_omit_keys: []
+solving:
+  solving_mode: false
+  obj_index: 0
+/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnx2pytorch/convert/layer.py:29: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/conda/conda-bld/pytorch_1729647429097/work/torch/csrc/utils/tensor_numpy.cpp:206.)
+  layer.weight.data = torch.from_numpy(numpy_helper.to_array(weight))
+/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnx2pytorch/convert/model.py:151: UserWarning: Using experimental implementation that allows 'batch_size > 1'.Batchnorm layers could potentially produce false outputs.
+  warnings.warn(
+/root/alpha-beta-CROWN/complete_verifier/load_model.py:245: UserWarning: Not able to check model's conversion correctness
+  warnings.warn('Not able to check model\'s conversion correctness')
+
+Experiments at Mon Jun 15 15:29:56 2026 on DESKTOP-T7D47O8
+no customized start/end sample, testing all samples in instances.csv
+Internal results will be saved to results/abcrown_out.txt.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit0_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.1227 seconds
+Finished vnnlib processing in 0.002670 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[16.93399811,  1.38634014,  6.76607704, 11.77659225,  3.92510390,
+          7.25222445, 11.04069328,  7.43604851,  9.77705193]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 31%|███       | 31/100 [00:00<00:00, 308.17it/s]
+ 62%|██████▏   | 62/100 [00:00<00:00, 292.79it/s]
+ 98%|█████████▊| 98/100 [00:00<00:00, 321.50it/s]
+100%|██████████| 100/100 [00:00<00:00, 315.05it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[16.48236084,  0.38970232,  6.03799534, 10.96679878,  3.21170831,
+          6.75314474, 10.63220024,  6.80411005,  9.20646667]])
+Total number of violation:  0
+Attack finished in 0.3416 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[  7.28650761, -10.07864380,   5.85700703,   0.52667820,  -4.93150425,
+           3.33411932,  -0.15411881,  -4.02031326,  -0.34326750,  -2.64881063]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [3]; unstable size 3; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 2, 1, 3] with unstable size 1 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 3] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [1]; unstable size 1; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 1] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [16.354162216186523, 0.30830883979797363, 5.965109825134277, 10.797036170959473, 3.162529945373535, 6.6140360832214355, 10.430593490600586, 6.739537239074707, 9.105791091918945]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.5566 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 1, vnnlib ID: 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit1_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0305 seconds
+Finished vnnlib processing in 0.001291 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[10.47643471,  6.52257633,  6.72925568,  9.12233639,  7.35292721,
+          7.25569248,  7.63875723,  7.04112720, 10.44676304]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 37%|███▋      | 37/100 [00:00<00:00, 362.06it/s]
+ 77%|███████▋  | 77/100 [00:00<00:00, 380.17it/s]
+100%|██████████| 100/100 [00:00<00:00, 393.64it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[8.89684868, 4.54603004, 4.92248726, 7.85726738, 6.04803896, 6.17955589,
+         6.38125372, 5.54948902, 8.88176727]])
+Total number of violation:  0
+Attack finished in 0.2619 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-5.05782318,  5.05519056, -0.97901118, -1.13963223, -4.01050520,
+         -1.96235192, -2.04699755, -2.40829992, -1.63181567, -5.05917263]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [6]; unstable size 6; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 3, 1, 6] with unstable size 2 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 6] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [2]; unstable size 2; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [8.74970817565918, 4.48721170425415, 4.758706569671631, 7.782468318939209, 5.977523326873779, 6.097504138946533, 6.254486083984375, 5.439650535583496, 8.735553741455078]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3630 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 2, vnnlib ID: 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit2_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0409 seconds
+Finished vnnlib processing in 0.001599 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.66726685, 22.54353714, 15.41377068, 13.20188046, 12.97421455,
+         12.58578300, 15.80217743, 10.47132301, 13.28056431]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 37%|███▋      | 37/100 [00:00<00:00, 363.02it/s]
+ 76%|███████▌  | 76/100 [00:00<00:00, 378.22it/s]
+100%|██████████| 100/100 [00:00<00:00, 377.37it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 5.89302540, 21.71684837, 14.48879814, 12.47240639, 11.93920326,
+         11.70985031, 14.73263645,  9.66269112, 12.32867050]])
+Total number of violation:  0
+Attack finished in 0.2874 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[  4.30890322, -12.08161736,  11.14037609,  -4.44691372,  -2.45934534,
+          -2.15106773,  -1.85275161,  -5.01605320,   0.39816701,  -2.31921387]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [2]; unstable size 2; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 3, 1, 2] with unstable size 2 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [2]; unstable size 2; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [5.859541893005371, 21.657363891601562, 14.319058418273926, 12.393352508544922, 11.827737808227539, 11.534137725830078, 14.669844627380371, 9.528603553771973, 12.242985725402832]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.4161 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 3, vnnlib ID: 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit3_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0353 seconds
+Finished vnnlib processing in 0.001621 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.83025837, 12.35908508, 11.35147762, 21.17339706,  5.38971376,
+         17.19284439,  4.95830011,  8.34419727,  7.45296335]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 33%|███▎      | 33/100 [00:00<00:00, 325.80it/s]
+ 77%|███████▋  | 77/100 [00:00<00:00, 392.25it/s]
+100%|██████████| 100/100 [00:00<00:00, 386.01it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.13285542, 12.05821800, 10.50546455, 20.54704285,  4.82830238,
+         16.86793518,  4.19107533,  7.69588470,  7.10513973]])
+Total number of violation:  0
+Attack finished in 0.2657 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[  1.50206029,  -4.28144407,  -3.06844091,   8.52940178, -13.30524254,
+           3.01675892,  -9.10690975,   3.28477788,  -0.10036640,   0.79619598]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [1]; unstable size 1; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 1, 1, 1] with unstable size 0 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 1] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [0]; unstable size 0; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 0] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [6.046818256378174, 12.037042617797852, 10.45799732208252, 20.545696258544922, 4.786425590515137, 16.848407745361328, 4.119709491729736, 7.691165924072266, 7.10200309753418]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3778 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 4, vnnlib ID: 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit4_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0335 seconds
+Finished vnnlib processing in 0.000870 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.002500000409781933, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[11.77810860, 13.35248375,  6.90252447, 13.02147102, 12.64434052,
+         10.29370022,  5.67005634,  8.80170822,  6.06353807]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 43%|████▎     | 43/100 [00:00<00:00, 429.42it/s]
+ 88%|████████▊ | 88/100 [00:00<00:00, 441.29it/s]
+100%|██████████| 100/100 [00:00<00:00, 440.55it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[10.13720894, 12.22080517,  5.51391029, 11.36287022, 10.92547989,
+          9.38014507,  3.74772835,  7.54406977,  4.70423126]])
+Total number of violation:  0
+Attack finished in 0.2339 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-5.24123526, -7.00515413, -0.44068220, -6.46487093,  6.27959728,
+         -6.07712936, -3.95145774,  0.91332048, -2.41108394,  0.48404381]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [3]; unstable size 3; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 3, 1, 3] with unstable size 2 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 3] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [2]; unstable size 2; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [9.901569366455078, 12.159318923950195, 5.424306869506836, 11.149209976196289, 10.68367862701416, 9.195280075073242, 3.6887338161468506, 7.374202728271484, 4.672327041625977]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3339 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 5, vnnlib ID: 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit5_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0450 seconds
+Finished vnnlib processing in 0.001432 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 8.80706024, 10.42169285, 11.29635620,  8.07476044,  6.89601707,
+         11.51257896, 10.09720230,  5.00164986,  6.16165733]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 37%|███▋      | 37/100 [00:00<00:00, 361.81it/s]
+ 81%|████████  | 81/100 [00:00<00:00, 405.61it/s]
+100%|██████████| 100/100 [00:00<00:00, 396.24it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 7.89687538,  9.88892746,  9.86705780,  6.92511177,  5.57136345,
+         10.59017372,  9.07132721,  4.03556490,  5.06459236]])
+Total number of violation:  0
+Attack finished in 0.2611 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-3.21937561, -5.22753525, -5.79308128, -2.39918613, -1.74327779,
+          5.67647886, -6.11117697, -4.68294668,  0.50291848, -0.64072883]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [3]; unstable size 3; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 2, 1, 3] with unstable size 1 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 3] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [1]; unstable size 1; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 1] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [7.896873474121094, 9.777251243591309, 9.808125495910645, 6.888455390930176, 5.533234596252441, 10.456896781921387, 9.011971473693848, 4.03556489944458, 4.960512638092041]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3884 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 6, vnnlib ID: 6 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit6_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0281 seconds
+Finished vnnlib processing in 0.001136 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[14.91358852, 12.58798599, 10.19981766, 13.82015324,  4.98870754,
+         11.07599926, 13.89579773, 11.06150436,  8.04889870]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 36%|███▌      | 36/100 [00:00<00:00, 358.74it/s]
+ 80%|████████  | 80/100 [00:00<00:00, 405.05it/s]
+100%|██████████| 100/100 [00:00<00:00, 417.38it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[13.75303936, 11.76776886,  8.79125214, 12.09421921,  4.16713238,
+          9.78629494, 12.76266670,  9.48758698,  6.74987221]])
+Total number of violation:  0
+Attack finished in 0.2607 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-8.21768475, -6.36286592, -3.50140238, -7.01738644,  1.43313229,
+         -4.38037586,  6.57778454, -7.42393589, -4.33188200, -1.31888270]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [2]; unstable size 2; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 1, 1, 2] with unstable size 0 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [0]; unstable size 0; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 0] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [13.699112892150879, 11.727176666259766, 8.754485130310059, 11.98473072052002, 4.1555585861206055, 9.718008995056152, 12.710491180419922, 9.475872039794922, 6.682700157165527]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3578 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 7, vnnlib ID: 7 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit7_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0251 seconds
+Finished vnnlib processing in 0.000683 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 8.19747353, 12.71673584,  4.30607462,  8.97186279, 14.03046227,
+         11.82582474, 15.20474625,  8.77861404,  5.51183128]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 40%|████      | 40/100 [00:00<00:00, 396.37it/s]
+ 85%|████████▌ | 85/100 [00:00<00:00, 425.76it/s]
+100%|██████████| 100/100 [00:00<00:00, 423.66it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.80030632, 11.89498711,  2.48597670,  7.26492023, 12.69189072,
+         10.51310730, 14.00929070,  7.06309605,  4.38216496]])
+Total number of violation:  0
+Attack finished in 0.2570 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-2.05032349, -6.96436882,  1.94129884, -2.72049260, -8.20296574,
+         -5.69061947, -9.28911400,  5.99097776, -2.64975810,  0.60202289]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [3]; unstable size 3; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 1, 1, 3] with unstable size 0 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 3] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [0]; unstable size 0; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 0] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [6.783756732940674, 11.893413543701172, 2.485975742340088, 7.24474573135376, 12.687963485717773, 10.488299369812012, 13.997215270996094, 7.060787200927734, 4.372185707092285]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3531 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 8, vnnlib ID: 8 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit8_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0265 seconds
+Finished vnnlib processing in 0.001415 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 9.18765068, 15.40257645,  9.49625587,  5.32503843,  8.83052444,
+          6.59652138, 12.04060364, 12.79588604,  3.81611633]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 42%|████▏     | 42/100 [00:00<00:00, 415.20it/s]
+ 85%|████████▌ | 85/100 [00:00<00:00, 422.71it/s]
+100%|██████████| 100/100 [00:00<00:00, 427.87it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 8.07647133, 14.52931881,  8.49336815,  3.93886185,  8.11644840,
+          5.19200468, 11.08125114, 11.11534309,  2.58193851]])
+Total number of violation:  0
+Attack finished in 0.2484 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[ -3.67202520, -10.34916401,  -4.00079203,   0.33767936,  -3.71942520,
+          -1.03315389,  -6.76748896,  -7.48255539,   5.46615553,   1.64670801]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [3]; unstable size 3; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 2, 1, 3] with unstable size 1 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 3] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [1]; unstable size 1; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 1] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [7.9179606437683105, 14.362403869628906, 8.387407302856445, 3.856536865234375, 8.029803276062012, 5.026579856872559, 10.97349739074707, 10.871200561523438, 2.5498878955841064]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3427 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 9, vnnlib ID: 9 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit9_eps0.01.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0356 seconds
+Finished vnnlib processing in 0.001134 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0025000013411045074, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[10.42940998, 12.39453697, 12.37707520, 10.84428978,  2.12950969,
+         11.18442535, 11.92067146,  5.57636166,  7.12699986]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 38%|███▊      | 38/100 [00:00<00:00, 374.13it/s]
+ 81%|████████  | 81/100 [00:00<00:00, 405.13it/s]
+100%|██████████| 100/100 [00:00<00:00, 404.69it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 9.47082138, 11.77887535, 11.40272331,  9.95640564,  1.21277380,
+         10.19936752, 11.19422340,  4.54182100,  6.26765537]])
+Total number of violation:  0
+Attack finished in 0.2541 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-5.36449718, -7.54845953, -7.32653284, -5.71218300,  2.72334838,
+         -6.12951088, -7.01111794, -0.48092160, -2.13544512,  5.15688324]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [0]; unstable size 0; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 0] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [2]; unstable size 2; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [9.339603424072266, 11.775251388549805, 11.301078796386719, 9.85000991821289, 1.1934168338775635, 10.043991088867188, 11.077692985534668, 4.461032867431641, 6.131919860839844]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3606 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 10, vnnlib ID: 10 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit0_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0385 seconds
+Finished vnnlib processing in 0.000689 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[15.83406639,  1.31785870,  6.42337036, 10.99706268,  3.63997698,
+          6.76820278, 10.31123924,  7.01131105,  9.27780819]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:00, 148.38it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[13.83648300, -3.55874252,  2.51634407,  7.38515091,  0.18007326,
+          4.48941374,  8.31809235,  3.97169399,  6.50132799]])
+Total number of violation:  1
+Attack finished in 0.0294 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1183 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 11, vnnlib ID: 11 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit1_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0447 seconds
+Finished vnnlib processing in 0.001535 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[9.91590405, 6.15689087, 6.41165495, 8.64983463, 7.00412035, 6.87825775,
+         7.19917679, 6.72766352, 9.91041565]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:01, 63.81it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 2.17181635, -3.41016316, -2.47696090,  2.72527504,  0.67330402,
+          1.65987635,  1.32560730, -0.45274746,  2.13348532]])
+Total number of violation:  3
+Attack finished in 0.0382 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1460 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 12, vnnlib ID: 12 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit2_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0361 seconds
+Finished vnnlib processing in 0.001277 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.41690540, 21.26036835, 14.72524738, 12.52923775, 12.32040024,
+         11.91584778, 14.96211243, 10.01326942, 12.74880600]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 40%|████      | 40/100 [00:00<00:00, 398.04it/s]
+ 81%|████████  | 81/100 [00:00<00:00, 402.71it/s]
+100%|██████████| 100/100 [00:00<00:00, 410.29it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 2.27720928, 17.25166702,  9.58434868,  8.95162678,  6.80224276,
+          7.26600885,  9.70832157,  5.61289883,  8.00941944]])
+Total number of violation:  0
+Attack finished in 0.2615 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[  4.48028088, -12.91671085,  11.63901520,  -3.70247102,  -2.81966805,
+          -2.10213637,  -2.16212106,  -5.09688330,   0.47082862,  -1.91485751]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [7]; unstable size 7; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 7, 1, 7] with unstable size 6 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 7] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [6]; unstable size 6; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 6] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [1.0695512294769287, 15.723238945007324, 8.049187660217285, 7.801164150238037, 5.3376054763793945, 5.383158206939697, 7.699904441833496, 4.5235371589660645, 6.513705730438232]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.3731 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 13, vnnlib ID: 13 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit3_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0368 seconds
+Finished vnnlib processing in 0.001437 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 6.33209562, 11.62551117, 10.69879818, 19.97094727,  5.04230881,
+         16.19202995,  4.54615974,  7.86438990,  6.97486496]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 42%|████▏     | 42/100 [00:00<00:00, 419.46it/s]
+ 88%|████████▊ | 88/100 [00:00<00:00, 439.18it/s]
+100%|██████████| 100/100 [00:00<00:00, 421.61it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 2.96477008, 10.15934277,  6.55688810, 16.88054466,  2.32700396,
+         14.59333038,  0.82641459,  4.55482340,  5.17835236]])
+Total number of violation:  0
+Attack finished in 0.2552 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[  1.75192797,  -4.75994492,  -2.82105184,   9.04767513, -14.09310341,
+           3.41562128,  -9.25666714,   3.08764672,  -0.20773256,   0.71771741]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [10]; unstable size 10; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 7, 1, 10] with unstable size 6 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 10] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [6]; unstable size 6; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 6] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [0.6879427433013916, 7.470611095428467, 4.509951591491699, 13.854399681091309, -0.44441676139831543, 11.297901153564453, -1.9734845161437988, 2.9748587608337402, 3.288255214691162]
+prune_after_crown optimization in use
+  original spec size = torch.Size([1, 9])
+  pruned spec size = torch.Size([1, 2])
+Using alpha-CROWN to initialize bounds.
+Early stop at 13th iter due to 10 iterations no improvement!
+best_l after optimization: -2.4031126499176025
+alpha/beta optimization time: 0.13995957374572754
+initial alpha-crown bounds (first 10 items): [-0.4382154941558838, -1.9648971557617188]
+Global lower bound: -1.9648971557617188
+7 / 9 OR specs are verified.
+Verified OR indices (first 10 items): [0, 1, 2, 3, 5, 7, 8]
+Verified OR lbs (first 10 items): [[inf], [inf], [inf], [inf], [inf], [inf], [inf]]
+Unverified OR indices (first 10 items): [4, 6]
+Unverified OR lbs (first 10 items): [[-0.4382154941558838], [-1.9648971557617188]]
+###### Verifying property Instance 13 ######
+Batch size: 2
+First 10 spec matrices
+C: tensor([[[ 0.,  0.,  0.,  1.,  0., -1.,  0.,  0.,  0.,  0.]],
+
+        [[ 0.,  0.,  0.,  1.,  0.,  0.,  0., -1.,  0.,  0.]]])
+RHS: tensor([[0.],
+        [0.]])
+OR spec sizes: tensor([1, 1], dtype=torch.int32)
+Remaining timeout: 119.395925283432
+Model prediction is: tensor([  1.75192797,  -4.75994492,  -2.82105184,   9.04767513, -14.09310341,
+          3.41562128,  -9.25666714,   3.08764672,  -0.20773256,   0.71771741])
+Activation BaB batch 1/1 
+build_with_refined_bounds batch [1/1]
+Optimizable variables initialized.
+all alpha initialized
+directly get lb and ub from refined bounds
+c shape: torch.Size([2, 1, 10])
+lA shapes: [torch.Size([2, 1, 32]), torch.Size([2, 1, 16])]
+(alpha-)CROWN with fixed intermediate bounds: tensor([[-0.43821549],
+        [-1.96489716]]) tensor([[inf],
+        [inf]])
+Intermediate layers: /input,/input-3
+Keeping alphas for these layers: ['/17']
+Node /14 input 0: size torch.Size([32]) unstable 10
+Node /16 input 0: size torch.Size([16]) unstable 6
+-----------------
+# of unstable neurons: 16
+-----------------
+
+BaB round 1
+batch: 2
+splitting decisions: 
+split level 0: [/input-3, 7] [/input-3, 1] 
+split level 1: [/input-3, 2] [/input, 0] 
+split level 2: [/input, 14] [/input-3, 2] 
+split level 3: [/input, 27] [/input, 14] 
+split level 4: [/input-3, 5] [/input, 27] 
+split level 5: [/input, 22] [/input, 22] 
+
+all verified at 0th iter
+best_l after optimization: 321.5638427734375
+beta sum per layer: [0.0, 0.0]
+alpha/beta optimization time: 0.0043506622314453125
+pruning_in_iteration open status: False
+ratio of positive domain = 128 / 128 = 1.0
+pruning-in-iteration extra time: 4.100799560546875e-05
+Time: get_branching_decision.update_bounds 0.0271    pickout 0.0008    branching_decision 0.0002    decision 0.0002    set_bounds 0.0147    prepare 0.0031    transfer 0.0000    finalize 0.0002    func 0.0112    
+Accumulated time: get_branching_decision.update_bounds 0.0271    bab_iteration 0.0000    pickout 0.0008    decision 0.0002    branching_decision 0.0002    set_bounds 0.0147    solve 0.0000    func 0.0112    prepare 0.0031    transfer 0.0000    finalize 0.0002    
+max lb 4.898777484893799 min lb 0.15765869617462158
+Number of Verified Splits: 128 of 128
+Current (lb-rhs): 1.0000000116860974e-07
+128 domains visited
+Length of domains: 0
+Cumulative time: 1.101034164428711
+
+Result: safe in 1.7069 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 14, vnnlib ID: 14 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit4_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0424 seconds
+Finished vnnlib processing in 0.001546 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[11.22303581, 12.71364880,  6.54851437, 12.44851494, 12.04034424,
+          9.76096058,  5.42329836,  8.44615364,  5.86117172]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:00, 126.27it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 2.06766129,  7.19240332, -1.21890616,  2.82463694,  2.30389977,
+          4.53342342, -3.91188383,  0.91312975, -1.02305293]])
+Total number of violation:  3
+Attack finished in 0.0293 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1288 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 15, vnnlib ID: 15 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit5_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0480 seconds
+Finished vnnlib processing in 0.001353 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 8.30575943,  9.68898010, 10.64178276,  7.64857960,  6.38943243,
+         10.80896664,  9.37919617,  4.76120996,  5.84237766]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 38%|███▊      | 38/100 [00:00<00:00, 373.54it/s]
+ 76%|███████▌  | 76/100 [00:00<00:00, 376.04it/s]
+100%|██████████| 100/100 [00:00<00:00, 364.19it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[3.87185764, 7.09731340, 3.69484448, 2.07475686, 0.06125712, 6.52722168,
+         4.32213259, 0.16225982, 0.59480631]])
+Total number of violation:  0
+Attack finished in 0.2991 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+torch allclose failed: norm 3.3925809930224204e-06
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-2.68495703, -6.00825500, -5.41858721, -1.57017791, -2.96418238,
+          6.01474476, -6.11590672, -4.60955095,  0.42997739, -0.56999052]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [11]; unstable size 11; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 6, 1, 11] with unstable size 5 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 11] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [5]; unstable size 5; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 5] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [2.561927318572998, 4.673897743225098, 0.9745779037475586, 0.8296886682510376, -1.839897632598877, 4.105329513549805, 2.377722978591919, -1.2350654602050781, -1.5209379196166992]
+prune_after_crown optimization in use
+  original spec size = torch.Size([1, 9])
+  pruned spec size = torch.Size([1, 3])
+Using alpha-CROWN to initialize bounds.
+Early stop at 55th iter due to 10 iterations no improvement!
+best_l after optimization: -4.141037464141846
+alpha/beta optimization time: 0.2893636226654053
+initial alpha-crown bounds (first 10 items): [-1.6745734214782715, -1.0829596519470215, -1.3835043907165527]
+Global lower bound: -1.6745734214782715
+6 / 9 OR specs are verified.
+Verified OR indices (first 10 items): [0, 1, 2, 3, 5, 6]
+Verified OR lbs (first 10 items): [[inf], [inf], [inf], [inf], [inf], [inf]]
+Unverified OR indices (first 10 items): [4, 7, 8]
+Unverified OR lbs (first 10 items): [[-1.6745734214782715], [-1.0829596519470215], [-1.3835043907165527]]
+###### Verifying property Instance 15 ######
+Batch size: 3
+First 10 spec matrices
+C: tensor([[[ 0.,  0.,  0.,  0., -1.,  1.,  0.,  0.,  0.,  0.]],
+
+        [[ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0., -1.,  0.]],
+
+        [[ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0., -1.]]])
+RHS: tensor([[0.],
+        [0.],
+        [0.]])
+OR spec sizes: tensor([1, 1, 1], dtype=torch.int32)
+Remaining timeout: 119.17100143432617
+Model prediction is: tensor([-2.68495703, -6.00825500, -5.41858721, -1.57017791, -2.96418238,
+         6.01474476, -6.11590672, -4.60955095,  0.42997739, -0.56999052])
+Activation BaB batch 1/1 
+build_with_refined_bounds batch [1/1]
+Optimizable variables initialized.
+all alpha initialized
+directly get lb and ub from refined bounds
+c shape: torch.Size([3, 1, 10])
+lA shapes: [torch.Size([3, 1, 32]), torch.Size([3, 1, 16])]
+(alpha-)CROWN with fixed intermediate bounds: tensor([[-1.67457342],
+        [-1.08295965],
+        [-1.38350439]]) tensor([[inf],
+        [inf],
+        [inf]])
+Intermediate layers: /input,/input-3
+Keeping alphas for these layers: ['/17']
+Node /14 input 0: size torch.Size([32]) unstable 11
+Node /16 input 0: size torch.Size([16]) unstable 5
+-----------------
+# of unstable neurons: 16
+-----------------
+
+BaB round 1
+batch: 3
+splitting decisions: 
+split level 0: [/input, 28] [/input-3, 3] [/input-3, 10] 
+split level 1: [/input-3, 10] [/input-3, 10] [/input, 28] 
+split level 2: [/input, 0] [/input, 19] [/input-3, 11] 
+split level 3: [/input, 17] [/input-3, 8] [/input, 17] 
+split level 4: [/input-3, 5] [/input-3, 5] [/input, 13] 
+split level 5: [/input, 15] [/input, 15] [/input, 19] 
+best_l after optimization: -0.0670139342546463
+beta sum per layer: [0.6065951585769653, 0.0]
+alpha/beta optimization time: 0.09307551383972168
+pruning_in_iteration open status: True
+ratio of positive domain = 190 / 192 = 0.9895833333333334
+pruning-in-iteration extra time: 0.003511190414428711
+Time: get_branching_decision.update_bounds 0.0156    pickout 0.0005    branching_decision 0.0001    decision 0.0001    set_bounds 0.0124    prepare 0.0037    transfer 0.0000    finalize 0.0003    func 0.1188    
+Accumulated time: get_branching_decision.update_bounds 0.0156    bab_iteration 0.0000    pickout 0.0005    decision 0.0001    branching_decision 0.0001    set_bounds 0.0124    solve 0.0000    func 0.1188    prepare 0.0037    transfer 0.0000    finalize 0.0003    
+max lb 9.999999747378752e-05 min lb -0.06714680790901184
+Number of Verified Splits: 190 of 192
+Current worst splitting domains lb-rhs (depth):
+-0.06715 (6), -0.01887 (6), 
+Current (lb-rhs): -0.06714680790901184
+192 domains visited
+Length of domains: 2
+Cumulative time: 0.1669759750366211
+
+BaB round 2
+batch: 2
+splitting decisions: 
+split level 0: [/input, 13] [/input, 13] 
+split level 1: [/input-3, 11] [/input-3, 11] 
+split level 2: [/input, 19] [/input, 19] 
+split level 3: [/input, 1] [/input, 1] 
+split level 4: [/input, 29] [/input, 29] 
+split level 5: [/input-3, 3] [/input, 22] 
+
+all verified at 7th iter
+best_l after optimization: 0.017689531669020653
+beta sum per layer: [39.14621353149414, 0.0]
+alpha/beta optimization time: 0.035408973693847656
+pruning_in_iteration open status: True
+ratio of positive domain = 128 / 128 = 1.0
+pruning-in-iteration extra time: 0.0011663436889648438
+Time: get_branching_decision.update_bounds 0.0156    pickout 0.0013    branching_decision 0.0001    decision 0.0001    set_bounds 0.0178    prepare 0.0053    transfer 0.0000    finalize 0.0001    func 0.0430    solve 0.1189    add 0.0008    bab_iteration 0.1330    
+Accumulated time: get_branching_decision.update_bounds 0.0156    bab_iteration 0.1330    pickout 0.0017    decision 0.0002    branching_decision 0.0002    set_bounds 0.0302    solve 0.1189    func 0.1618    prepare 0.0090    transfer 0.0000    finalize 0.0004    add 0.0008    
+max lb 0.004989534616470337 min lb 9.999999747378752e-05
+Number of Verified Splits: 128 of 128
+Current (lb-rhs): 1.0000000116860974e-07
+320 domains visited
+Length of domains: 0
+Cumulative time: 0.22935962677001953
+
+Result: safe in 1.0600 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 16, vnnlib ID: 16 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit6_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0281 seconds
+Finished vnnlib processing in 0.000954 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[14.26711655, 11.89888000,  9.75911045, 13.20147991,  4.63151217,
+         10.54760361, 13.18039513, 10.58382797,  7.68010664]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+ 33%|███▎      | 33/100 [00:00<00:00, 324.76it/s]
+ 66%|██████▌   | 66/100 [00:00<00:00, 315.61it/s]
+ 99%|█████████▉| 99/100 [00:00<00:00, 320.89it/s]
+100%|██████████| 100/100 [00:00<00:00, 320.95it/s]
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[8.21071815, 7.88318253, 2.73704457, 4.21816158, 0.73677874, 3.96554565,
+         7.40690517, 3.02839470, 1.13574445]])
+Total number of violation:  0
+Attack finished in 0.3272 seconds.
+PGD attack failed
+verified_status unknown
+verified_success False
+Model: BoundedModule(
+  (/0): BoundInput(name=/0, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/input): BoundLinear(name=/input, inputs=[/0, /7, /8], perturbed=True)
+  (/14): BoundRelu(name=/14, inputs=[/input], perturbed=True)
+  (/input-3): BoundLinear(name=/input-3, inputs=[/14, /9, /10], perturbed=True)
+  (/16): BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+  (/17): BoundLinear(name=/17, inputs=[/16, /11, /12], perturbed=True)
+)
+Original output in the first batch: tensor([[-7.42993736, -7.59821653, -3.01104307, -5.83511686,  0.46429086,
+         -3.78371644,  5.89572001, -7.50319529, -3.86294937, -0.82779133]])
+Split layers:
+Nonlinear functions:
+   BoundRelu(name=/14, inputs=[/input], perturbed=True)
+   BoundRelu(name=/16, inputs=[/input-3], perturbed=True)
+build batch [1/1]
+layer /14 using sparse-features alpha with shape [9]; unstable size 9; total size 32 ([1, 32])
+layer /14 start_node /input-3 using sparse-spec alpha [2, 3, 1, 9] with unstable size 2 total_size 16 output_shape torch.Size([16])
+layer /14 start_node /17 using full alpha [2, 9, 1, 9] with unstable size None total_size 9 output_shape 9
+layer /16 using sparse-features alpha with shape [2]; unstable size 2; total size 16 ([1, 16])
+layer /16 start_node /17 using full alpha [2, 9, 1, 2] with unstable size None total_size 9 output_shape 9
+Optimizable variables initialized.
+initial CROWN bounds (first 10 items): [7.510642051696777, 6.811137676239014, 1.5864992141723633, 3.4019711017608643, 0.3861720561981201, 2.6142349243164062, 6.023924350738525, 2.4560446739196777, 0.6494808197021484]
+Verified with initial CROWN!
+verified with init bound!
+Result: safe-incomplete in 0.4295 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 17, vnnlib ID: 17 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit7_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0367 seconds
+Finished vnnlib processing in 0.001353 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 7.86801577, 12.02671623,  4.11510181,  8.57639790, 13.36547470,
+         11.27812958, 14.43627834,  8.45876694,  5.30726051]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:00, 99.75it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 1.26403117,  8.34472656, -4.62436914,  0.31783926,  6.91037750,
+          4.79778385,  8.49214649,  0.16728783, -0.00940144]])
+Total number of violation:  2
+Attack finished in 0.0210 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1155 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 18, vnnlib ID: 18 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit8_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0461 seconds
+Finished vnnlib processing in 0.001583 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 8.66874123, 14.38952255,  8.95803070,  4.99286938,  8.20925426,
+          6.21589279, 11.24350739, 11.94645405,  3.47966385]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:01, 59.00it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 3.30769467, 10.18949318,  3.95925665, -1.56061578,  4.80925655,
+         -0.38445783,  6.62980938,  3.81724072, -2.19646263]])
+Total number of violation:  3
+Attack finished in 0.0357 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1540 seconds
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 19, vnnlib ID: 19 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx models/model.onnx
+Using vnnlib vnnlib/prop_digit9_eps0.05.vnnlib
+784 inputs and 10 outputs in vnnlib
+Loading onnx /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with quirks {}
+Failed to run inference on ONNX model /mnt/c/Users/Taewoo/alpha-beta-crown-verification/models/model.onnx with input shape torch.Size([1, 784])
+Please check the ONNX model and input shape.
+
+*************Error traceback*************
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 226, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 230, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.numpy().squeeze(0))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 238, in load_model_onnx
+    raise e
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 234, in load_model_onnx
+    output_onnx = inference_onnx(model_path, x.flatten(1).unsqueeze(-1).numpy())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alpha-beta-CROWN/complete_verifier/load_model.py", line 118, in inference_onnx
+    sess = ort.InferenceSession(unzip_and_optimize_onnx(path).SerializeToString(),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 419, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 474, in _create_inference_session
+    sess = C.InferenceSession(session_options, self._model_bytes, False, self._read_config_from_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+onnxruntime.capi.onnxruntime_pybind11_state.InvalidArgument: [ONNXRuntimeError] : 2 : INVALID_ARGUMENT : Failed to load model with error: /croot/onnxruntime_1711063034809/work/onnxruntime/core/graph/model.cc:179 onnxruntime::Model::Model(onnx::ModelProto&&, const PathString&, const IOnnxRuntimeOpSchemaRegistryList*, const onnxruntime::logging::Logger&, const onnxruntime::ModelOptions&) Unsupported model IR version: 13, max supported IR version: 9
+
+
+*****************************************
+
+Finished onnx model loading in 0.0449 seconds
+Finished vnnlib processing in 0.001318 seconds
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.012500002980232239, GAMA=False
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 9.92171001, 11.62007523, 11.70003891, 10.17227459,  1.98033738,
+         10.57092285, 11.30681992,  5.21915436,  6.75175953]])
+Total number of violation:  0
+Processing batch 1/1...
+
+  0%|          | 0/100 [00:00<?, ?it/s]
+  1%|          | 1/100 [00:00<00:00, 101.80it/s]
+pgd early stop
+PGD attack margin (first 2 examples and 10 specs):
+ tensor([[ 4.34892607,  8.82016087,  6.07043934,  4.99499607, -2.20676064,
+          4.81370831,  7.30957174,  0.27422094,  1.46060157]])
+Total number of violation:  1
+Attack finished in 0.0166 seconds.
+PGD attack succeeded!
+
+Checking and Saving Counterexample in check_and_save_cex
+
+verified_status unsafe-pgd
+verified_success True
+Result: unsafe-pgd in 0.1286 seconds
+############# Summary #############
+Final verified acc: 70.0% (total 20 examples)
+Problem instances count: 20 , total verified (safe/unsat): 14 , total falsified (unsafe/sat): 6 , timeout: 0
+mean time for ALL instances (total 20):0.4105285618446363, max time: 1.706880807876587
+mean time for verified SAFE instances(total 14): 0.5299510785511562, max time: 1.706880807876587
+mean time for verified (SAFE + UNSAFE) instances (total 20): 0.4105287671089172, max time: 1.706880807876587
+mean time for verified UNSAFE instances (total 6): 0.13187670707702637, max time: 0.15400266647338867
+safe-incomplete (total 12), index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 16]
+unsafe-pgd (total 6), index: [10, 11, 14, 17, 18, 19]
+safe (total 2), index: [13, 15]
+/root/miniconda3/envs/alpha-beta-crown/lib/python3.11/tempfile.py:934: ResourceWarning: Implicitly cleaning up <TemporaryDirectory '/tmp/tmpdptxz0kw'>
+  _warnings.warn(warn_message, ResourceWarning)
