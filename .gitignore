@@ -25,6 +25,11 @@ Thumbs.db
 # Prior assignment's report, kept locally only as a reference (not part of this submission).
 report_marabou_reference.pdf
 
+# WSL/conda setup scripts and the report generator — kept locally, not required deliverables.
+scripts/
+# Intermediate Word version of the report (the submitted deliverable is report.pdf).
+report.docx
+
 # ─── alpha-beta-CROWN: external tool, installed separately ─
 # The cloned verifier lives outside this repo (WSL: ~/alpha-beta-CROWN).
 alpha-beta-CROWN/
