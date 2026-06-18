@@ -22,6 +22,9 @@ Thumbs.db
 .ipynb_checkpoints/
 .claude
 
+# Prior assignment's report, kept locally only as a reference (not part of this submission).
+report_marabou_reference.pdf
+
 # ─── alpha-beta-CROWN: external tool, installed separately ─
 # The cloned verifier lives outside this repo (WSL: ~/alpha-beta-CROWN).
 alpha-beta-CROWN/
